@@ -1,1 +1,21 @@
+<header>
+
+# Smart Static Website
+
 Hosting a secure, fast, and cost efficient website.
+
+</header>
+
+## Objectives:
+
+- Secure website against hackers
+- Fast and responsive for users
+- Created with resource and cost efficiency
+
+## Tech stack:
+
+- S3
+- CloudFront
+- Ceritficate Manager
+- CloudWatch
+- WAF
