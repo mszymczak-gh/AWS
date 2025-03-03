@@ -14,8 +14,12 @@ Hosting a secure, fast, and cost efficient website.
 
 ## Tech stack:
 
+- Route 53
 - S3
 - CloudFront
 - Ceritficate Manager
 - CloudWatch
 - WAF
+
+## Week 1
+_24/02/25 - 28/02/25_
