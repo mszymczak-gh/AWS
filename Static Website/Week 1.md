@@ -19,4 +19,6 @@ Actions:
 - Replaced the dist files with the source files from bolt [project](). This is an issue as the server requires the fully built dist files (short for distribution).
 - Prompted bolt to upload the correct contents to the dist folder which was empty before. Uploaded these files to S3 without a parent folder, issue still persisted.
 - Followed [Ibrahim's guide](https://medium.com/@brahimdeiza/easy-way-to-host-a-website-on-aws-full-guide-b690b4763f34) on Medium. Order of setup was different: Route 53, S3 Bucket, ACM, then CloudFront.
-- Set everything up according to the article and it is accessible via [testingstaticwebsite.co.uk](testingstaticwebsite.co.uk) and the subdomain www.testingstaticwebsite.co.uk.
+- Set everything up according to the article and it is accessible via [testingstaticwebsite.co.uk](https://testingstaticwebsite.co.uk/) and the subdomain www.testingstaticwebsite.co.uk.
+
+![image](https://github.com/user-attachments/assets/bcfb8d88-1b2d-4ae5-9fec-664a74fff8d7)
