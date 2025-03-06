@@ -53,7 +53,7 @@ Used to calculate and control the operating resources needed to run rules, rule 
 
 - Rule WCU - to reflect each rule's relative cost
 - Rule Group WCU - determined by the rules that re defined inside the rule group, max capacity 5000 WCUs
-- Web ACL WCUs - determined by the rule or rule groups inside the web ACL. The basic price for web ACL includes 1500 WCU, Mac capacity 5000 WCU.
+- Web ACL WCUs - determined by the rule or rule groups inside the web ACL. The basic price for web ACL includes 1500 WCU, Mac capacity 5000 WCU
 
 Practical implications:
 - More complex security = More WCUs consumed
