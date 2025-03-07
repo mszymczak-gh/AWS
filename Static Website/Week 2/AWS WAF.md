@@ -59,3 +59,6 @@ Practical implications:
 - More complex security = More WCUs consumed
 - You can't just add infinite complex rules
 - Must design efficient, targeted security rules
+
+![image](https://github.com/user-attachments/assets/b2ff2f8f-52b6-4573-8118-7f6686d869db)
+
