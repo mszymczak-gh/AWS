@@ -18,9 +18,9 @@ Testing:
  Actions:
 
 - Applied a cost-effective WAF rule setup
- - Header Protection Rules:
-  - NoUserAgent_HEADER: Blocks requests with no User-Agent header
-  - UserAgent_BadBots_HEADER: Blocks requests from known malicious user agents
+  - Header Protection Rules:
+    - NoUserAgent_HEADER: Blocks requests with no User-Agent header
+    - UserAgent_BadBots_HEADER: Blocks requests from known malicious user agents
  
  
  - Size Restriction Rules:
