@@ -1,20 +1,5 @@
  _10/03/25 - 16/03/25_
 
-Testing:
-* test1
-   * test 2
-   * test 3
-     * test 5
- 
-- test 4
-   - test 5
-      - test 9
- 
- 1. test 6
-    - test 7
-
-
-
  Actions:
 
 1. **Applied a cost-effective WAF rule setup.** This provides protection against common vulnerabilities like XSS and SQL injection
@@ -43,14 +28,22 @@ Testing:
     - RestrictedExtensions_URIPATH: Blocks requests to files with dangerous extensions
     - RestrictedExtensions_QUERYARGUMENTS: Blocks query parameters containing dangerous file extensions
    
-  - RFI Protection Rules
+  - RFI Protection Rules:
     - GenericRFI_QUERYARGUMENTS: Blocks Remote File Inclusion attacks in query parameters
     - GenericRFI_BODY: Blocks RFI attacks in request bodies
     - GenericRFI_URIPATH: Blocks RFI attacks in URI paths
 
-
-  - XSS Protection Rules
+  - XSS Protection Rules:
     - CrossSiteScripting_COOKIE: Blocks XSS attacks via cookies
     - CrossSiteScripting_QUERYARGUMENTS: Blocks XSS attacks in query parameters
     - CrossSiteScripting_BODY: Blocks XSS attacks in request bodies
     - CrossSiteScripting_URIPATH: Blocks XSS attempts in URI paths
+
+2. **Rate-Based Rule** This protects against brute force and DDoS attempts
+  - Rule type = Rule builder
+  - Name = RateLimiteRule
+  - Rate limit = 100
+  - Evaluation windows = 5 minutess (300 seconds)
+  - Request aggregation = Source IP address
+  - Scope of inspection and rate limiting = Consider all requests
+  - Action = Block
