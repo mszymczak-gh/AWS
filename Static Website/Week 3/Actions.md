@@ -1,8 +1,46 @@
- _10/03/25 - 16/03/25_
+ _10/03/25 - 15/03/25_
 
  Actions:
+ 
+ - Applied a cost-effective WAF rule setup (777/5000 WCUs). List is in order of priority:
 
-1. **Applied a cost-effective WAF rule setup.** This provides protection against common vulnerabilities like XSS and SQL injection
+1. **Geo-Restriction Rule** blocks IP addresses originating from specified countries (1 WCUs)
+   - Name = GeoRestriction
+   - If a request = matches the statement
+   - Inspect = Originates from a country in
+   - Country codes = China, Russia, North Korea
+   - IP address to use to determine the country of origin = Source IP address
+   - Action = Block
+
+2. **Access Control List Rule (HTTP Method Restriction)** blocks unauthorized HTTP methods (4 WCUs)
+   - Name = AllowOnlyGetHead
+   - If a request = doesn't match the statement (NOT)
+   - Inspect = HTTP method
+   - Match type = Exactly matches string
+   - String to match = GET
+   - Text transformation = None
+   - Action = Block
+
+3. **Rate-Based Rule** protects against brute force and DDoS attempts (2 WCUs)
+   - Name = RateLimiteRule
+   - Type = Rate-based rule
+   - Rate limit = 100
+   - Evaluation windows = 5 minutess (300 seconds)
+   - Request aggregation = Source IP address
+   - Scope of inspection and rate limiting = Consider all requests
+   - Action = Block
+
+4. **Custom Bad Bot Rule** reduces unnecessary processing of malicious traffic (100 WCUs)
+   - Name = BadBotBlocker
+   - If a request = matches at least one of the statements (OR)
+   - Inspect = Single header
+   - Header field name = user-agent
+   - Match type = Contains string
+   - String to match = crawl + slurp + spider + bot + scrape + curl + wget
+   - Action = Block
+
+
+5. **AWS Managed Core Rule Set** provides protection against common vulnerabilities like XSS and SQL injection (700 WCUs)
   - Header Protection Rules:
     - NoUserAgent_HEADER: Blocks requests with no User-Agent header
     - UserAgent_BadBots_HEADER: Blocks requests from known malicious user agents
@@ -38,12 +76,6 @@
     - CrossSiteScripting_QUERYARGUMENTS: Blocks XSS attacks in query parameters
     - CrossSiteScripting_BODY: Blocks XSS attacks in request bodies
     - CrossSiteScripting_URIPATH: Blocks XSS attempts in URI paths
-
-2. **Rate-Based Rule** This protects against brute force and DDoS attempts
-  - Rule type = Rule builder
-  - Name = RateLimiteRule
-  - Rate limit = 100
-  - Evaluation windows = 5 minutess (300 seconds)
-  - Request aggregation = Source IP address
-  - Scope of inspection and rate limiting = Consider all requests
-  - Action = Block
+   
+- Created a CloudWatch and connecting it in WAF on the Logging and metrics tab
+- 
