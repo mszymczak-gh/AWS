@@ -6,7 +6,7 @@ A web application firewall can be a software, a service, a device, an appliance 
 
 ![image](https://github.com/user-attachments/assets/fa7af196-c93b-4bc0-a450-0ff81360cf0f)
 
-WAF can protect based on the IP address, the rate of the requests, or the content.
+WAF can protect based on the IP address, the rate, or the content of the requests.
 
 
 WAF protects both AWS and on-premises applications.
@@ -47,7 +47,7 @@ The AWS WAF would evaluate the rules for this web ACL in the following order:
 
 If a rule in the web ACL finds a match for a request and the action is a terminating action, that match determines the final disposition of the web request and the WAF doesn't process any other rules in the web ACL.
 
-## Web ACL Capacity Unites (WCUs)
+## Web ACL Capacity Units (WCUs)
 
 Used to calculate and control the operating resources needed to run rules, rule groups, and web ACLs.
 
