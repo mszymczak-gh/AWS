@@ -4,7 +4,7 @@
  
  - Applied a cost-effective WAF rule setup (777/5000 WCUs). List is in order of priority:
 
-1. **Geo-Restriction Rule** blocks IP addresses originating from specified countries (1 WCUs)
+1. **Geo-Restriction Rule** blocks IP addresses from specific countries (1 WCUs)
    - Name = GeoRestriction
    - If a request = matches the statement
    - Inspect = Originates from a country in
@@ -41,41 +41,55 @@
 
 
 5. **AWS Managed Core Rule Set** provides protection against common vulnerabilities like XSS and SQL injection (700 WCUs)
-  - Header Protection Rules:
-    - NoUserAgent_HEADER: Blocks requests with no User-Agent header
-    - UserAgent_BadBots_HEADER: Blocks requests from known malicious user agents
-
-  - Size Restriction Rules:
-    - SizeRestrictions_QUERYSTRING: Blocks abnormally large query strings
-    - SizeRestrictions_Cookie_HEADER: Blocks cookies exceeding size limits
-    - SizeRestrictions_BODY: Blocks requests with unusually large bodies
-    - SizeRestrictions_URIPATH: Blocks URIs with excessive length
+   - Header Protection Rules:
+     - NoUserAgent_HEADER: Blocks requests with no User-Agent header
+     - UserAgent_BadBots_HEADER: Blocks requests from known malicious user agents
  
-  - Cross-Site Request Forgery (CSRF) Protection:
-    - EC2MetaDataSSRF_BODY: Prevents Server-Side Request Forgery attacks targeting EC2 metadata
-    - EC2MetaDataSSRF_COOKIE: Similar protection for cookie-based SSRF
-    - EC2MetaDataSSRF_URIPATH: Protection against SSRF in URI paths
-    - EC2MetaDataSSRF_QUERYARGUMENTS: Protection against SSRF in query parameters
+   - Size Restriction Rules:
+     - SizeRestrictions_QUERYSTRING: Blocks abnormally large query strings
+     - SizeRestrictions_Cookie_HEADER: Blocks cookies exceeding size limits
+     - SizeRestrictions_BODY: Blocks requests with unusually large bodies
+     - SizeRestrictions_URIPATH: Blocks URIs with excessive length
+  
+   - Cross-Site Request Forgery (CSRF) Protection:
+     - EC2MetaDataSSRF_BODY: Prevents Server-Side Request Forgery attacks targeting EC2 metadata
+     - EC2MetaDataSSRF_COOKIE: Similar protection for cookie-based SSRF
+     - EC2MetaDataSSRF_URIPATH: Protection against SSRF in URI paths
+     - EC2MetaDataSSRF_QUERYARGUMENTS: Protection against SSRF in query parameters
+  
+   - File Inclusion Protection:
+     - GenericLFI_QUERYARGUMENTS: Blocks Local File Inclusion attempts in query parameters
+     - GenericLFI_URIPATH: Blocks Local File Inclusion attempts in URI paths
+     - GenericLFI_BODY: Blocks Local File Inclusion attempts in request bodies
+  
+   - File Extension Protection:
+     - RestrictedExtensions_URIPATH: Blocks requests to files with dangerous extensions
+     - RestrictedExtensions_QUERYARGUMENTS: Blocks query parameters containing dangerous file extensions
+    
+   - RFI Protection Rules:
+     - GenericRFI_QUERYARGUMENTS: Blocks Remote File Inclusion attacks in query parameters
+     - GenericRFI_BODY: Blocks RFI attacks in request bodies
+     - GenericRFI_URIPATH: Blocks RFI attacks in URI paths
  
-  - File Inclusion Protection:
-    - GenericLFI_QUERYARGUMENTS: Blocks Local File Inclusion attempts in query parameters
-    - GenericLFI_URIPATH: Blocks Local File Inclusion attempts in URI paths
-    - GenericLFI_BODY: Blocks Local File Inclusion attempts in request bodies
- 
-  - File Extension Protection:
-    - RestrictedExtensions_URIPATH: Blocks requests to files with dangerous extensions
-    - RestrictedExtensions_QUERYARGUMENTS: Blocks query parameters containing dangerous file extensions
+   - XSS Protection Rules:
+     - CrossSiteScripting_COOKIE: Blocks XSS attacks via cookies
+     - CrossSiteScripting_QUERYARGUMENTS: Blocks XSS attacks in query parameters
+     - CrossSiteScripting_BODY: Blocks XSS attacks in request bodies
+     - CrossSiteScripting_URIPATH: Blocks XSS attempts in URI paths
    
-  - RFI Protection Rules:
-    - GenericRFI_QUERYARGUMENTS: Blocks Remote File Inclusion attacks in query parameters
-    - GenericRFI_BODY: Blocks RFI attacks in request bodies
-    - GenericRFI_URIPATH: Blocks RFI attacks in URI paths
+- Created a CloudWatch and connected it in WAF for logging and metrics.
+- Website became unaccessible after deploying WAF. 
 
-  - XSS Protection Rules:
-    - CrossSiteScripting_COOKIE: Blocks XSS attacks via cookies
-    - CrossSiteScripting_QUERYARGUMENTS: Blocks XSS attacks in query parameters
-    - CrossSiteScripting_BODY: Blocks XSS attacks in request bodies
-    - CrossSiteScripting_URIPATH: Blocks XSS attempts in URI paths
-   
-- Created a CloudWatch and connecting it in WAF on the Logging and metrics tab
-- 
+![image](https://github.com/user-attachments/assets/6ee1d090-ca30-49a0-b05a-f7907b863d72)
+
+- Sampled Requests from WAF and All metrics from CloudWatch showed that AllowOnlyGetHead2 is causing the block. This rule restricts only HEAD HTTP requests.
+- The rules **IF NOT(Method=GET) THEN Block** and **IF NOT(Method=HEAD) THEN Block** are separated with AllowOnlyGetHead and AllowOnlyGetHead2 respectively.
+- The GET request is being allowed through the 1st rule but is blocked by the 2nd.
+
+![image](https://github.com/user-attachments/assets/250a0735-f159-48f3-9b83-3598df9f1910)
+
+- Same error '_Error from cloudfront_' occurs for:
+  - curl -v https://testingstaticwebsite.co.uk
+  - curl -I https://testingstaticwebsite.co.uk
+- It's not suitable to reverse the rule to IF (Method=HEAD) THEN Allow and setting the default action as Block because the rest of the rules rely on it being Allow.
+- I was not able to configure 1 rule to include both the GET and HEAD strings which would have resolved the issue. The console has limitations so I created [the rule]() using the JSON editor.
