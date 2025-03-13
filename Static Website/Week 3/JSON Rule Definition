@@ -1,0 +1,52 @@
+{
+  "Name": "BlockNonGetHeadMethods",
+  "Priority": 0,
+  "Statement": {
+    "NotStatement": {
+      "Statement": {
+        "OrStatement": {
+          "Statements": [
+            {
+              "ByteMatchStatement": {
+                "SearchString": "GET",
+                "FieldToMatch": {
+                  "Method": {}
+                },
+                "TextTransformations": [
+                  {
+                    "Priority": 0,
+                    "Type": "NONE"
+                  }
+                ],
+                "PositionalConstraint": "EXACTLY"
+              }
+            },
+            {
+              "ByteMatchStatement": {
+                "SearchString": "HEAD",
+                "FieldToMatch": {
+                  "Method": {}
+                },
+                "TextTransformations": [
+                  {
+                    "Priority": 0,
+                    "Type": "NONE"
+                  }
+                ],
+                "PositionalConstraint": "EXACTLY"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Action": {
+    "Block": {}
+  },
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "BlockNonGetHeadMethods"
+  }
+}
