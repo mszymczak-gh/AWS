@@ -109,9 +109,6 @@
 
 ![image](https://github.com/user-attachments/assets/7a4ab3b7-41c1-4a67-9612-56c84075278a)
 
-- Tested the RateLimitRule using a [bash script]() which send curl requests in a loop. This caused the site to go down and CLoudWatch picked it up.
-
-![image](https://github.com/user-attachments/assets/feee9270-5275-43a7-af34-29075391fd16)
- 
+- Tested the RateLimitRule using a [bash script](test_rate_limit.sh) which send curl requests in a loop. This caused the site to go down and CLoudWatch picked it up.
 
 ![image](https://github.com/user-attachments/assets/d4adc459-94f0-4dfb-91ab-6a673c6c5123)
