@@ -93,3 +93,16 @@
   - curl -I https://testingstaticwebsite.co.uk
 - It's not suitable to reverse the rule to IF (Method=HEAD) THEN Allow and setting the default action as Block because the rest of the rules rely on it being Allow.
 - I was not able to configure 1 rule to include both the GET and HEAD strings which would have resolved the issue. The console has limitations so I created [the rule](JSON_Rule_Definition.json) using the JSON editor.
+
+![image](https://github.com/user-attachments/assets/e822eee1-a6d3-436f-b6c8-97451a56c739)
+
+- GET requests work as I can access the site. HEAD requests work, tested this in CLI.
+
+-A "Mozilla/5.0" avoids triggering the BadBotBlocker2 rule.
+
+![image](https://github.com/user-attachments/assets/3e558202-13f5-412c-9b99-cbec2ca707df)
+
+![image](https://github.com/user-attachments/assets/85bd18d9-b570-41fc-8e21-a0d4d5ad2c81)
+
+- Tested the AWS-AWSManagedRulesCommonRuleSet by typing https://testingstaticwebsite.co.uk/?s=<script>alert(document.cookie);</script>
+
