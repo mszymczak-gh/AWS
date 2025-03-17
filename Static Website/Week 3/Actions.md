@@ -105,7 +105,7 @@
 ![image](https://github.com/user-attachments/assets/85bd18d9-b570-41fc-8e21-a0d4d5ad2c81)
 
 - Tested the AWS-AWSManagedRulesCommonRuleSet by typing https://testingstaticwebsite.co.uk/?s=<script>alert(document.cookie);</script>
-- The BadBotBlocker2 blocked this request.
+- The BadBotBlocker2 rule blocked this request.
 
 ![image](https://github.com/user-attachments/assets/7a4ab3b7-41c1-4a67-9612-56c84075278a)
 
