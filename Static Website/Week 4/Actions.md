@@ -10,3 +10,4 @@ Actions:
 ![image](https://github.com/user-attachments/assets/28cf9bf2-22ed-41d3-86e1-155dd2bc078b)
 
 - Installed Terraform successfully. [Terraform](Installing_Terraform_2.sh)
+- 
