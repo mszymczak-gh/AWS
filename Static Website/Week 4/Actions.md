@@ -1,5 +1,6 @@
 _17/03/25_ - _21/03/25_
-_01/04/25_ - 04/04/25_
+
+_01/04/25_ - _04/04/25_
 
 Actions:
 
@@ -11,3 +12,6 @@ Actions:
 ![image](https://github.com/user-attachments/assets/28cf9bf2-22ed-41d3-86e1-155dd2bc078b)
 
 - Installed Terraform successfully. [Terraform](Installing_Terraform_2.sh)
+- Current file structure:
+
+![image](https://github.com/user-attachments/assets/040c8018-f733-417c-be37-bb9a94f14c16)
