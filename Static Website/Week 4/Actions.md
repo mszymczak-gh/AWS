@@ -4,7 +4,7 @@ _01/04/25_ - _04/04/25_
 
 Actions:
 
-- Increased the RAM on my Ubuntu VM to 4500 MB.
+- Increased the RAM on Ubuntu VM to 4500 MB.
 - Tried installing AWS CLI and Terraform with the apt package manager however this didn't work. [AWS CLI](Installing_AWS_CLI.sh) [Terraform](Installing_Terraform.sh)
 - Tried installing AWS CLI by curling awscli.amazonaws.com > First attempt didn't work as the downloaded file may have corrupted or is incomplete.
 - Installed AWS CLI again and it worked. [AWS CLI](Installing_AWS_CLI_2.sh)
